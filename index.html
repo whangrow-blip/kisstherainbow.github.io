@@ -13,8 +13,8 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #212529;
             line-height: 1.6;
             padding: 10px;
         }
@@ -27,37 +27,39 @@
         
         header {
             text-align: center;
-            padding: 15px;
-            background: #2c3e50;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
             color: white;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         h1 {
             margin: 0;
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 600;
         }
         
         .time-display {
-            font-size: 12px;
+            font-size: 13px;
             opacity: 0.9;
             margin-top: 5px;
         }
         
         .status-indicator {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background-color: #28a745;
             margin-right: 5px;
         }
         
         .connection-status {
-            font-size: 11px;
+            font-size: 12px;
             margin-top: 3px;
-            color: #a0aec0;
+            color: #adb5bd;
         }
         
         .category-tabs {
@@ -71,19 +73,27 @@
             flex: 1;
             padding: 12px 5px;
             border: none;
-            background: #e0e0e0;
-            color: #333;
+            background: #e9ecef;
+            color: #495057;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: 500;
+            font-size: 13px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 8px;
             margin: 0 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .tab-btn:hover {
+            background: #dee2e6;
+            transform: translateY(-1px);
         }
         
         .tab-btn.active {
-            background: #3498db;
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
             color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
         .news-container {
@@ -93,99 +103,124 @@
         .news-section {
             display: none;
             background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
         }
         
         .news-section.active {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .news-item {
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #ffffff;
             cursor: pointer;
-            border-left: 4px solid #ccc;
+            border-left: 4px solid #ced4da;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #f1f3f5;
         }
         
-        .news-item.military { border-left-color: #8B0000; }
-        .news-item.political { border-left-color: #4B0082; }
-        .news-item.economic { border-left-color: #006400; }
-        .news-item.tech { border-left-color: #00008B; }
-        .news-item.agriculture { border-left-color: #8B4513; }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-color: #dee2e6;
+        }
+        
+        .news-item.military { border-left-color: #dc3545; }
+        .news-item.political { border-left-color: #6f42c1; }
+        .news-item.economic { border-left-color: #28a745; }
+        .news-item.tech { border-left-color: #007bff; }
+        .news-item.agriculture { border-left-color: #fd7e14; }
         
         .news-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .news-title {
-            font-weight: bold;
-            color: #2c3e50;
+            font-weight: 600;
+            color: #212529;
             font-size: 15px;
         }
         
         .news-date {
-            font-size: 10px;
-            color: #7f8c8d;
-            background: #ecf0f1;
-            padding: 2px 6px;
-            border-radius: 10px;
+            font-size: 11px;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 500;
         }
         
         .news-desc {
-            color: #555;
-            margin-bottom: 8px;
+            color: #495057;
+            margin-bottom: 10px;
             font-size: 13px;
+            line-height: 1.5;
         }
         
         .market-note {
-            font-size: 11px;
-            padding: 6px 10px;
-            border-radius: 4px;
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
             background: #f8f9fa;
+            border: 1px solid #e9ecef;
         }
         
         .market-note.positive {
             background-color: #d4edda;
             color: #155724;
+            border-color: #c3e6cb;
         }
         
         .market-note.negative {
             background-color: #f8d7da;
             color: #721c24;
+            border-color: #f5c6cb;
         }
         
         .market-note.neutral {
-            background-color: #e2e3e5;
-            color: #383d41;
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
         }
         
         .reason-text {
-            font-style: italic;
-            color: #666;
-            margin-top: 4px;
-            font-size: 10px;
+            font-style: normal;
+            color: #6c757d;
+            margin-top: 6px;
+            font-size: 11px;
+            line-height: 1.4;
         }
         
         .loading-news {
             text-align: center;
             padding: 30px;
-            color: #7f8c8d;
+            color: #6c757d;
             font-style: italic;
+            font-size: 14px;
         }
         
         .subscribe-form {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             margin-top: 15px;
+            border: 1px solid #e9ecef;
         }
         
         .modal-overlay {
@@ -194,7 +229,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(33, 37, 41, 0.85);
             display: none;
             z-index: 1000;
         }
@@ -205,100 +240,146 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
+            max-width: 700px;
+            max-height: 85vh;
             background: white;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 25px;
             overflow-y: auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid #e9ecef;
         }
         
         .modal-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
         }
         
         .modal-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 600;
+            color: #212529;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .close-modal {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
-            color: #777;
+            color: #6c757d;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            padding: 0;
+            margin: 0;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: #f8f9fa;
+            color: #495057;
         }
         
         .modal-date {
-            font-size: 12px;
-            color: #7f8c8d;
-            margin-bottom: 10px;
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
         
         .modal-content {
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.7;
+            color: #495057;
             font-size: 14px;
+            white-space: pre-line;
         }
         
         .modal-market-note {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            margin-top: 20px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            border: 1px solid #e9ecef;
         }
         
         .modal-market-note.positive {
             background-color: #d4edda;
             color: #155724;
+            border-color: #c3e6cb;
         }
         
         .modal-market-note.negative {
             background-color: #f8d7da;
             color: #721c24;
+            border-color: #f5c6cb;
         }
         
         .modal-market-note.neutral {
-            background-color: #e2e3e5;
-            color: #383d41;
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
         }
         
         input, button {
-            padding: 10px;
-            margin: 6px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
             width: 100%;
             font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, button:focus {
+            outline: none;
+            border-color: #4a6491;
+            box-shadow: 0 0 0 0.2rem rgba(74, 100, 145, 0.25);
+        }
+        
+        input {
+            background: #fdfdfd;
         }
         
         button {
-            background: #3498db;
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
             color: white;
             border: none;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         footer {
             text-align: center;
-            padding: 15px;
-            color: #7f8c8d;
-            font-size: 12px;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 13px;
             margin-top: 15px;
         }
         
         @media (max-width: 480px) {
             body {
-                padding: 5px;
+                padding: 8px;
             }
             
             h1 {
@@ -306,7 +387,7 @@
             }
             
             .tab-btn {
-                font-size: 11px;
+                font-size: 12px;
                 padding: 10px 3px;
             }
             
@@ -320,7 +401,21 @@
             
             .modal {
                 width: 95%;
-                padding: 15px;
+                padding: 18px;
+            }
+            
+            .modal-title {
+                font-size: 17px;
+            }
+            
+            .close-modal {
+                top: 10px;
+                right: 15px;
+                font-size: 24px;
+            }
+            
+            .modal-content {
+                font-size: 13px;
             }
         }
     </style>
@@ -346,39 +441,39 @@
         
         <div class="news-container" id="news-container">
             <div id="military-section" class="news-section active">
-                <h2 style="font-size: 16px; margin-bottom: 12px;">军事动态</h2>
+                <h2 style="font-size: 17px; margin-bottom: 15px; color: #212529;">军事动态</h2>
                 <div class="loading-news" id="military-loading">正在获取最新军事新闻...</div>
                 <div id="military-news-container"></div>
             </div>
             
             <div id="political-section" class="news-section">
-                <h2 style="font-size: 16px; margin-bottom: 12px;">政治动态</h2>
+                <h2 style="font-size: 17px; margin-bottom: 15px; color: #212529;">政治动态</h2>
                 <div class="loading-news" id="political-loading">正在获取最新政治新闻...</div>
                 <div id="political-news-container"></div>
             </div>
             
             <div id="economic-section" class="news-section">
-                <h2 style="font-size: 16px; margin-bottom: 12px;">经济动态</h2>
+                <h2 style="font-size: 17px; margin-bottom: 15px; color: #212529;">经济动态</h2>
                 <div class="loading-news" id="economic-loading">正在获取最新经济新闻...</div>
                 <div id="economic-news-container"></div>
             </div>
             
             <div id="tech-section" class="news-section">
-                <h2 style="font-size: 16px; margin-bottom: 12px;">科技动态</h2>
+                <h2 style="font-size: 17px; margin-bottom: 15px; color: #212529;">科技动态</h2>
                 <div class="loading-news" id="tech-loading">正在获取最新科技新闻...</div>
                 <div id="tech-news-container"></div>
             </div>
             
             <div id="agriculture-section" class="news-section">
-                <h2 style="font-size: 16px; margin-bottom: 12px;">农业动态</h2>
+                <h2 style="font-size: 17px; margin-bottom: 15px; color: #212529;">农业动态</h2>
                 <div class="loading-news" id="agriculture-loading">正在获取最新农业新闻...</div>
                 <div id="agriculture-news-container"></div>
             </div>
         </div>
         
         <div class="subscribe-form">
-            <h2 style="margin-bottom: 8px; font-size: 16px;">订阅我们的每日推送</h2>
-            <p style="margin-bottom: 12px; font-size: 13px;">获取每日三次全球焦点新闻</p>
+            <h2 style="margin-bottom: 10px; font-size: 17px; color: #212529;">订阅我们的每日推送</h2>
+            <p style="margin-bottom: 15px; font-size: 14px; color: #495057;">获取每日三次全球焦点新闻</p>
             <input type="text" placeholder="输入您的姓名">
             <input type="email" placeholder="输入您的邮箱">
             <button>立即订阅</button>
@@ -402,6 +497,284 @@
     </footer>
 
     <script>
+        // 存储所有新闻数据
+        let allNewsData = {
+            military: [],
+            political: [],
+            economic: [],
+            tech: [],
+            agriculture: []
+        };
+
+        // 随机生成话题
+        function getRandomTopic(category) {
+            const topics = {
+                military: [
+                    "北约举行大规模军演",
+                    "中东地区冲突升级",
+                    "亚太地区军事部署调整",
+                    "反恐行动取得进展",
+                    "军备竞赛新动态",
+                    "网络安全防御升级",
+                    "海上联合巡逻",
+                    "防空系统测试",
+                    "情报共享协议签署",
+                    "军事援助计划公布"
+                ],
+                political: [
+                    "国际峰会成果发布",
+                    "外交关系新进展",
+                    "选举结果公布",
+                    "政策调整公告",
+                    "国际条约签署",
+                    "政府换届交接",
+                    "议会投票决议",
+                    "国际制裁措施",
+                    "和平协议谈判",
+                    "反腐调查进展"
+                ],
+                economic: [
+                    "股市收盘分析",
+                    "汇率变动报告",
+                    "通胀数据发布",
+                    "就业数据更新",
+                    "GDP增长率",
+                    "国际贸易数据",
+                    "央行利率调整",
+                    "企业财报发布",
+                    "大宗商品价格",
+                    "经济复苏计划"
+                ],
+                tech: [
+                    "AI技术突破",
+                    "量子计算进展",
+                    "太空探索任务",
+                    "新能源技术",
+                    "生物技术创新",
+                    "区块链应用",
+                    "5G网络扩展",
+                    "芯片制造突破",
+                    "虚拟现实应用",
+                    "网络安全更新"
+                ],
+                agriculture: [
+                    "粮食产量预测",
+                    "农业技术推广",
+                    "农产品价格变动",
+                    "农业政策调整",
+                    "农业合作协定",
+                    "农业科技研发",
+                    "农业机械化进展",
+                    "农产品出口数据",
+                    "农业保险政策",
+                    "农村发展规划"
+                ]
+            };
+            return topics[category][Math.floor(Math.random() * topics[category].length)];
+        }
+
+        // 随机生成描述
+        function getRandomDesc(category) {
+            const descs = {
+                military: [
+                    "多国部队参与的联合演习在指定区域展开，旨在提升协同作战能力。",
+                    "地区紧张局势引发国际关注，各方呼吁通过对话解决争端。",
+                    "军方宣布新型武器系统完成测试，预计将进一步提升作战效能。",
+                    "反恐部门成功挫败一起恐怖袭击阴谋，保障了民众安全。",
+                    "军备竞赛加剧，各国纷纷加大国防开支和武器研发力度。",
+                    "网络安全部队成功抵御了一次大规模网络攻击，保护了关键基础设施。",
+                    "海军舰队在争议海域展开例行巡逻，维护海洋权益。",
+                    "防空系统在实弹演习中表现出色，验证了防御能力。",
+                    "多国签署情报共享协议，加强反恐和安全合作。",
+                    "军事援助计划正式启动，将向盟友提供装备和技术支持。"
+                ],
+                political: [
+                    "各国领导人就全球治理、气候变化等议题进行了深入交流。",
+                    "双边关系在经历一段时间紧张后出现积极信号，双方同意恢复对话。",
+                    "选举结果揭晓，新当选领导人将于近期组建政府。",
+                    "政府宣布一系列政策调整，以应对当前经济和社会挑战。",
+                    "多国在国际会议上签署重要条约，为全球合作奠定新基础。",
+                    "政府权力交接仪式顺利完成，新任领导层正式履职。",
+                    "议会投票通过了重要法案，将对社会经济发展产生深远影响。",
+                    "国际社会对某些国家实施新一轮制裁，以回应其不当行为。",
+                    "各方代表在和平协议谈判中取得实质性进展，有望尽快签署协议。",
+                    "反腐败调查组公布了阶段性成果，多名官员受到法律制裁。"
+                ],
+                economic: [
+                    "主要股指收盘涨跌互现，投资者对市场前景持谨慎乐观态度。",
+                    "主要货币汇率出现波动，市场对央行政策预期保持关注。",
+                    "最新通胀数据显示物价水平基本稳定，符合央行调控目标。",
+                    "就业数据表现强劲，失业率降至近年来最低水平。",
+                    "GDP增长率超出预期，经济复苏势头进一步巩固。",
+                    "国际贸易数据显示进出口贸易持续增长，贸易顺差扩大。",
+                    "央行维持基准利率不变，符合市场普遍预期。",
+                    "多家大型企业发布季度财报，盈利表现超出分析师预期。",
+                    "大宗商品价格出现分化，能源价格保持高位震荡。",
+                    "政府启动新一轮经济刺激计划，助力经济持续增长。"
+                ],
+                tech: [
+                    "人工智能研究团队在自然语言处理领域取得重大突破，模型性能显著提升。",
+                    "量子计算研究取得新进展，科学家成功构建更高稳定性的量子比特。",
+                    "太空探索任务传来好消息，探测器成功着陆并传回宝贵数据。",
+                    "新能源技术产业化进程加快，多个示范项目投入运营。",
+                    "生物技术创新成果显著，基因编辑技术在医疗领域应用前景广阔。",
+                    "区块链技术在金融领域的应用日趋成熟，提升了交易安全性。",
+                    "5G网络建设进度超预期，覆盖范围不断扩大。",
+                    "芯片制造工艺持续改进，新一代处理器性能大幅提升。",
+                    "虚拟现实技术在教育和娱乐领域应用更加广泛，用户体验不断优化。",
+                    "网络安全技术升级，有效防范了各类网络威胁。"
+                ],
+                agriculture: [
+                    "联合国粮农组织发布最新报告，预计全球粮食产量将再创新高。",
+                    "智能农业技术在全国范围内推广，显著提高了农业生产效率。",
+                    "农产品市场价格出现波动，政府采取措施稳定市场供应。",
+                    "农业政策调整方案正式出台，将加大对农户的扶持力度。",
+                    "多国签署农业合作协议，促进农产品贸易和农业技术交流。",
+                    "农业科技研发项目取得重要进展，多项新技术投入试验。",
+                    "农业机械化水平持续提升，现代化农机装备普及率不断提高。",
+                    "农产品出口数据喜人，对外贸易保持良好增长势头。",
+                    "农业保险政策覆盖面扩大，为农户提供更多风险保障。",
+                    "农村发展规划全面实施，乡村振兴战略取得初步成效。"
+                ]
+            };
+            return descs[category][Math.floor(Math.random() * descs[category].length)];
+        }
+
+        // 随机生成详细新闻内容
+        function getRandomFullContent(category) {
+            const contents = {
+                military: [
+                    "北约成员国在东欧地区举行了名为'坚定正午2026'的大规模联合军事演习。此次演习涉及来自29个国家的约4万名士兵，重点演练了空中支援、地面作战和后勤保障等多个科目。演习旨在检验北约快速反应能力和集体防御机制的有效性，同时向潜在对手展示联盟的决心和实力。\n\n演习期间，各国部队展示了最新的军事技术和战术配合，包括无人机集群作战、电子战对抗和网络攻防演练。演习总指挥表示，这次演习达到了预期目标，显著提升了各成员国军队之间的协同作战能力。\n\n北约秘书长在演习结束后发表声明，强调联盟将继续致力于维护欧洲大西洋地区的和平与安全，并随时准备应对各种安全威胁。",
+                    "中东地区局势近日再次升温，两个邻国边境地区发生武装冲突。冲突起因于边界争议和资源分配问题，导致双方军事力量交火数日。国际社会对此高度关注，联合国安理会紧急召开会议，呼吁双方立即停火并寻求外交途径解决争端。\n\n冲突造成当地平民伤亡和财产损失，大量居民被迫撤离家园。红十字国际委员会等 humanitarian 组织已派遣救援队伍前往冲突地区，为受影响民众提供紧急援助。\n\n周边国家和国际组织正积极斡旋，试图促成双方达成停火协议。分析人士认为，解决根本矛盾需要通过长期的政治对话和经济合作。",
+                    "亚太地区军事部署出现新变化，多个国家调整了在该地区的军事存在。美国宣布将增派海军舰艇和空军战机至太平洋地区，同时与盟友加强军事合作和情报共享。中国方面则表示将继续推进国防现代化建设，维护国家主权和地区和平稳定。\n\n日本和韩国也相应调整了防卫政策，增加了军事预算并强化与美国的军事同盟关系。澳大利亚则宣布将采购更多先进武器系统，提升远程打击能力。\n\n专家指出，亚太地区的军事平衡正在发生变化，各方应通过对话协商管控分歧，避免军事竞争升级。",
+                    "国际反恐部门成功破获一起跨国恐怖主义阴谋，逮捕了多名嫌疑人并缴获大量武器弹药。该组织原计划在多个国际城市同时发动袭击，企图造成重大人员伤亡和恐慌。情报部门经过数月跟踪调查，最终锁定了该组织的活动轨迹。\n\n此次行动涉及多国执法机构的合作，展现了国际社会打击恐怖主义的决心和能力。警方表示，在行动中获得了重要情报，有助于预防未来可能发生的恐怖袭击。\n\n各国政府加强了对公共场所的安全警戒，并呼吁民众保持警惕，发现可疑情况及时报告相关部门。",
+                    "全球军备竞赛呈现新态势，多个大国竞相研发和部署先进武器系统。美国宣布成功试射新型洲际弹道导弹，俄罗斯展示了最新一代核潜艇，中国则公开了新型隐身战斗机的量产计划。\n\n太空军事化趋势日益明显，各国纷纷成立太空部队并部署天基武器系统。网络战能力建设也成为重点，各国投入巨资研发网络攻防技术。\n\n分析人士警告，军备竞赛可能引发新的安全困境，国际社会应加强军控谈判，防止冲突升级。",
+                    "网络安全部门成功防御了一次针对关键基础设施的大规模网络攻击。攻击者利用零日漏洞入侵了电力、交通和通信等多个关键系统，试图瘫痪城市运转。网络安全专家在数小时内识别并阻止了攻击，避免了严重后果。\n\n调查发现，这次攻击来自一个高级持续性威胁组织，具有明显的国家背景。政府已将此事件定性为国家级网络攻击，并对相关责任人进行了追责。\n\n专家建议，关键基础设施运营商应加强网络安全防护，定期进行安全评估和应急演练。",
+                    "多国海军在争议海域开展联合巡航行动，旨在维护国际航道安全和海洋法秩序。参与国包括美国、日本、澳大利亚、印度等，巡航范围涵盖南海、东海等热点海域。\n\n巡航期间，各国舰艇进行了通信协调、海上搜救、反海盗等科目的演练。行动旨在展示对自由航行原则的支持，并向相关方传递维护海洋法治的明确信号。\n\n相关国家对此反应不一，部分国家表示欢迎，认为此举有助于维护地区和平；另一些国家则表达关切，认为可能加剧地区紧张局势。",
+                    "防空系统在综合防空演习中表现出色，成功拦截了模拟来袭的各种导弹和飞行器。演习设置了复杂的电磁环境和多批次攻击场景，考验了防空系统的反应速度和拦截精度。\n\n新型防空系统具备更强的目标识别能力和抗干扰性能，能够同时跟踪和打击多个目标。演习结果显示，系统命中率达到95%以上，远超设计指标。\n\n军事专家认为，现代防空系统是国土防空的重要屏障，必须持续升级以应对日益复杂的空中威胁。",
+                    "多国签署新的情报共享协议，旨在加强反恐、反间谍和网络安全等领域的合作。协议建立了实时情报交换机制，允许成员国共享威胁预警、可疑活动和敌对势力动向等敏感信息。\n\n协议还设立了联合分析中心，由各国专家共同研判全球安全形势和潜在威胁。参与国承诺保护共享信息的安全性，并制定严格的保密措施。\n\n分析人士认为，情报共享是现代国家安全合作的重要形式，有助于提高整体防御能力。",
+                    "一项重要的军事援助计划正式启动，援助国将向受援国提供价值数十亿美元的武器装备和技术支持。援助内容包括主战坦克、装甲车辆、反坦克导弹系统以及相关的训练和维护服务。\n\n援助国表示，此举旨在帮助受援国提升国防能力，维护地区稳定。受援国政府对援助表示感谢，并承诺将妥善使用援助物资。\n\n国际观察员指出，此类援助可能对地区军事平衡产生影响，相关国家应保持克制，避免军备竞赛。"
+                ],
+                political: [
+                    "为期三天的国际峰会在日内瓦圆满落幕，来自120个国家的领导人就全球治理、气候变化、贸易合作等重大议题达成了广泛共识。峰会期间签署了《日内瓦宣言》，承诺加强多边合作，共同应对全球性挑战。\n\n各国领导人就减少碳排放、促进可持续发展、维护国际和平等议题进行了深入讨论。联合国秘书长在闭幕式上表示，峰会成果将为全球治理注入新动力。\n\n峰会还设立了专项基金，用于支持发展中国家应对气候变化和实现可持续发展目标。多国承诺增加资金投入，展现了解决全球问题的决心。",
+                    "经过数月的紧张谈判，两国之间长期存在的外交分歧终于出现积极转机。双方代表团在第三国首都举行秘密会谈，就关键争议问题达成初步谅解。\n\n会谈涉及边界划定、贸易往来、人员交流等多个方面。双方同意建立定期对话机制，逐步解决遗留问题。国际社会对这一进展表示欢迎，认为有助于维护地区稳定。\n\n两国媒体普遍对会谈成果给予正面评价，民众对关系改善也表达了期待。下一步双方将就具体实施细节进行技术层面的磋商。",
+                    "总统选举结果正式揭晓，候选人以微弱优势获胜，将组建新一届政府。选举过程相对平稳，投票率创下历史新高，体现了民众对国家未来的关切。\n\n新当选总统在胜选演讲中承诺，将致力于弥合社会分歧，推动经济复苏，改善民生福祉。执政党表示将与反对党合作，共同应对国内外挑战。\n\n国际社会对选举结果表示祝贺，期待与新政府加强合作。新政府预计将在未来几个月内公布施政纲领和内阁成员名单。",
+                    "政府宣布了一系列重要的政策调整，涉及税收改革、社会保障、教育医疗等多个领域。新政策旨在刺激经济增长，提高公共服务质量，减轻民众负担。\n\n其中最受关注的是减税措施，预计将为企业和个人减轻数百亿的税负。同时，政府将增加对基础设施建设和科技创新的投资。\n\n经济学家对政策调整总体持积极态度，认为有助于提升经济活力。但也有人担心财政收入减少可能影响公共服务供给。",
+                    "多国在联合国总部签署了具有里程碑意义的环境保护条约，承诺大幅减少温室气体排放，保护生物多样性。条约设定了具体的减排目标和时间表，建立了监督执行机制。\n\n条约还规定设立国际环保基金，支持发展中国家的环保项目。各国承诺逐步淘汰化石燃料，大力发展清洁能源。\n\n环保组织对条约签署表示欢迎，认为这是应对气候变化的重要一步。但也有批评声音质疑执行效果。",
+                    "政府权力交接仪式在首都隆重举行，新任总理宣誓就职，正式开始履行职责。前任总理在告别演说中总结了任期成就，对继任者表达了祝福。\n\n新政府面临诸多挑战，包括经济复苏、疫情防控、社会改革等。新总理在就职演说中提出了施政重点，强调团结协作的重要性。\n\n国际社会对新政府表示祝贺，期待在多边事务中继续合作。新政府已开始组建内阁，预计下周公布各部门负责人名单。",
+                    "议会经过激烈辩论，最终以多数票通过了备受争议的《数字权利法案》。该法案旨在规范数字时代的公民权利和义务，平衡隐私保护与国家安全的关系。\n\n法案规定了个人数据收集和使用的限制条件，明确了政府监管权限和企业责任。支持者认为这将保护公民隐私，反对者担心可能影响执法效率。\n\n法案生效后将设立专门的监管机构，负责监督执行情况。公众对法案反应不一，民调显示支持和反对比例相当。",
+                    "国际社会对某国实施新一轮制裁，以回应其违反国际法的行为。制裁措施包括冻结资产、限制贸易、禁止高端技术转让等，旨在迫使其改变政策。\n\n受制裁国政府对制裁表示强烈抗议，称这是霸权主义行径。该国采取反制措施，暂停了与制裁国的部分合作项目。\n\n经济学家警告，制裁可能对全球经济造成负面影响，特别是能源和粮食供应链。部分国家呼吁通过对话解决问题。",
+                    "经过多轮艰苦谈判，各方代表在和平协议草案上取得实质性突破。协议涵盖了停火安排、政治过渡、重建援助等核心内容，为结束长期冲突奠定了基础。\n\n协议规定设立临时政府，负责管理过渡期事务。国际社会将提供维和部队和重建资金，协助落实协议条款。\n\n虽然协议仍需各方正式签署，但国际观察员对前景表示乐观，认为和平曙光初现。",
+                    "反腐败调查组公布了年度工作报告，披露了多起重大案件的查处情况。全年共立案调查数千起案件，涉及多个政府部门和国有企业，挽回经济损失数百亿元。\n\n调查组运用大数据、人工智能等新技术手段，提高了办案效率和准确性。多名高级官员因违纪违法被移送司法机关。\n\n政府表示将继续保持反腐高压态势，完善制度建设，构建不敢腐、不能腐、不想腐的长效机制。"
+                ],
+                economic: [
+                    "主要股指今日收盘涨跌互现，上证指数上涨1.2%，深证成指下跌0.5%，创业板指上涨0.8%。市场交投活跃，两市成交额达到万亿元水平。\n\n科技股表现亮眼，人工智能、半导体、新能源汽车等板块涨幅居前。消费类股票走势分化，白酒、家电等传统行业表现平淡。\n\n分析师认为，市场情绪总体谨慎乐观，投资者关注政策面和基本面变化。预计短期内市场将维持震荡格局。",
+                    "外汇市场上主要货币汇率出现波动，美元兑欧元、英镑走强，人民币兑美元小幅贬值。市场对美联储货币政策预期发生变化，影响了汇率走势。\n\n欧洲央行维持宽松政策立场，欧元区经济数据好坏参半。新兴市场货币表现分化，部分亚洲货币相对坚挺。\n\n外汇专家提醒，汇率波动可能影响进出口企业成本，相关企业应做好风险管理。",
+                    "国家统计局发布的最新通胀数据显示，CPI同比上涨2.1%，PPI同比下降0.8%，物价水平总体稳定。食品价格涨幅有所回落，非食品价格基本平稳。\n\n统计局表示，当前通胀压力不大，但仍需关注输入性通胀风险和结构性涨价因素。货币政策将继续保持稳健灵活。\n\n经济学家认为，温和通胀有利于经济复苏，但需警惕通胀预期上升的风险。",
+                    "就业数据表现强劲，新增就业岗位15万个，失业率降至3.8%的多年低点。服务业和制造业用工需求旺盛，年轻人就业状况明显改善。\n\n劳动参与率保持稳定，工资增长与生产率提升基本匹配。政府表示将继续实施就业优先政策，稳定就业大局。\n\n专家指出，劳动力市场紧俏可能推高薪资水平，对消费增长形成支撑。",
+                    "国家统计局公布的GDP数据显示，第三季度同比增长5.2%，前三季度累计增长5.6%，经济复苏势头进一步巩固。消费、投资、出口三大需求协同发力。\n\n分行业看，服务业贡献突出，制造业保持稳定增长，农业丰收在望。新动能产业快速增长，成为经济增长的重要引擎。\n\n政府表示，四季度将继续实施积极的财政政策和稳健的货币政策，确保全年目标实现。",
+                    "海关总署发布数据显示，外贸进出口总值同比增长8.5%，其中出口增长7.2%，进口增长10.1%，贸易顺差收窄。主要贸易伙伴需求回升，新兴市场表现亮眼。\n\n机电产品、高新技术产品出口保持增长，劳动密集型产品占比下降。进口方面，能源、原材料需求旺盛，消费品进口增加。\n\n商务部表示，将推动贸易创新发展，培育外贸新业态新模式。",
+                    "央行在公开市场操作中净投放资金500亿元，维持流动性合理充裕。央行行长在讲话中表示，货币政策将继续保持稳健取向，适时适度调节。\n\n市场利率基本稳定，银行体系流动性充足。央行强调，将继续发挥结构性货币政策工具的作用，支持实体经济发展。\n\n经济学家认为，当前货币政策基调符合市场预期，有助于稳定市场信心。",
+                    "多家大型企业发布季度财报，整体盈利表现超出分析师预期。科技巨头营收增长强劲，金融企业利润稳步提升，制造业企业受益于订单回暖。\n\n企业现金流状况良好，资产负债结构持续优化。高管对未来前景表示乐观，计划增加研发投入和产能扩张。\n\n投资者对企业业绩表示认可，相关股票股价出现上涨。",
+                    "国际大宗商品价格出现分化，原油价格上涨3%，黄金价格下跌1%，铜价持平。供需基本面和宏观情绪共同影响价格走势。\n\n能源价格保持高位，地缘政治因素仍是重要影响变量。贵金属受美元走强影响出现回调，但避险需求依然存在。\n\n分析师认为，商品价格将维持高位震荡，投资者需关注供需变化和政策影响。",
+                    "政府宣布启动新一轮经济刺激计划，总规模达到万亿元级别，重点支持基础设施建设、科技创新、绿色发展等领域。\n\n计划包括减税降费、财政补贴、金融支持等多种措施，预计将拉动GDP增长0.5个百分点。地方政府将配套出台具体实施方案。\n\n经济学家认为，刺激计划有助于稳定经济增长，但需注意债务风险和资源配置效率。"
+                ],
+                tech: [
+                    "人工智能研究团队在自然语言处理领域取得重大突破，新开发的语言模型在多项评测中超越现有技术水平。模型参数量达到万亿级别，能够理解和生成高质量的人类语言。\n\n该模型在机器翻译、文本摘要、问答系统等应用场景中表现出色，准确率和流畅度显著提升。研究团队计划开源部分技术，推动行业发展。\n\n业界专家认为，这一突破将加速AI在各个领域的应用，但也引发了对就业和伦理的担忧。",
+                    "量子计算研究取得重要进展，科学家成功构建了具有100个量子比特的稳定量子计算机原型。该系统在特定算法上展现出经典计算机无法比拟的优势。\n\n研究人员实现了长时间的量子相干态保持，大幅降低了量子纠错难度。下一步将尝试解决更复杂的实际问题，如药物设计、金融建模等。\n\n科技公司纷纷加大量子计算投入，预计未来十年将有更多商业化应用涌现。",
+                    "太空探索任务传来好消息，火星探测器成功在预定地点着陆并开始科学探测工作。探测器搭载了多种先进仪器，将对火星地质、大气、水资源进行详细研究。\n\n地球接收站已确认收到首批高清图像和科学数据，初步分析显示火星表面存在有机物痕迹。任务团队表示，这可能为寻找生命迹象提供重要线索。\n\n各国航天机构对探测成果表示关注，计划增加火星探索投入。",
+                    "新能源技术产业化进程加快，钙钛矿太阳能电池效率突破30%，达到实用化水平。新技术成本更低，生产工艺更简单，有望替代传统硅基电池。\n\n多家企业宣布投资建设生产线，预计明年将实现规模化生产。政府出台支持政策，鼓励新能源技术推广应用。\n\n专家预测，新技术将推动太阳能发电成本进一步下降，加速能源转型进程。",
+                    "生物技术创新成果显著，基因编辑技术在治疗遗传性疾病方面取得突破。临床试验结果显示，接受治疗的患者病情得到显著改善，副作用可控。\n\n多家制药公司与研究机构签署合作协议，共同推进基因疗法的研发和商业化。监管部门正在制定相关审批流程和监管标准。\n\n这项技术为数百万遗传病患者带来希望，但也引发伦理和安全方面的讨论。",
+                    "区块链技术在金融领域的应用日趋成熟，多家银行推出基于区块链的跨境支付服务。新服务结算速度快、手续费低、透明度高，受到客户好评。\n\n央行数字货币试点范围扩大，已有数千万用户参与使用。技术专家认为，区块链将重塑金融基础设施，提高运行效率。\n\n监管机构正在研究制定相关法规，平衡创新与风险防控。",
+                    "5G网络建设进度超预期，全国已建成基站超过300万个，覆盖所有地级市和大部分县城。网络质量和用户体验持续改善，应用生态不断丰富。\n\n5G+工业互联网、智慧城市、远程医疗等融合应用蓬勃发展，为经济社会数字化转型提供有力支撑。\n\n运营商表示，将继续扩大覆盖范围，降低使用成本，让更多用户享受5G红利。",
+                    "芯片制造工艺持续改进，3纳米制程技术实现量产，下一代2纳米工艺进入试产阶段。新工艺在性能、功耗、面积等方面都有显著提升。\n\n主要芯片厂商纷纷下单预订产能，智能手机、数据中心、自动驾驶等领域需求旺盛。设备供应商订单饱满，产业链协同发展。\n\n专家认为，先进制程将成为科技竞争的关键，各国都在加大投入。",
+                    "虚拟现实技术在教育和娱乐领域应用更加广泛，新一代VR头显设备销量激增。设备分辨率更高、延迟更低、佩戴更舒适，用户体验大幅提升。\n\n教育机构开始使用VR技术进行沉浸式教学，学生反馈积极。游戏开发商推出更多VR内容，丰富了娱乐体验。\n\n技术专家预测，VR将逐步融入日常生活，成为重要的信息交互方式。",
+                    "网络安全技术升级，零信任架构得到广泛应用，有效防范了各类网络威胁。新系统采用动态验证机制，即使在已知安全的网络环境中也会持续验证用户身份。\n\n人工智能在威胁检测和响应方面发挥重要作用，能够实时识别异常行为并自动处置。云安全解决方案日趋成熟，为数字化转型保驾护航。\n\n专家建议，企业应将网络安全作为业务发展的前提条件，持续投入资源。"
+                ],
+                agriculture: [
+                    "联合国粮农组织发布最新报告，预计全球粮食产量将达到创纪录的28亿吨，主要得益于天气条件良好和农业技术进步。小麦、玉米、大米等主要作物均实现增产。\n\n报告指出，虽然总体供应充足，但部分地区仍面临粮食安全风险，需要国际社会提供援助。粮农组织呼吁各国加强合作，确保粮食分配公平。\n\n库存水平保持稳定，价格相对合理，为全球粮食安全提供了保障。但极端天气事件仍可能对产量造成冲击。",
+                    "智能农业技术在全国范围内推广，显著提高了农业生产效率。物联网传感器、无人机、自动化设备等新技术广泛应用于田间管理，实现了精准作业。\n\n试点地区的数据显示，新技术使化肥农药使用量减少20%，作物产量提升15%。农民收入增加，劳动强度降低。\n\n政府出台优惠政策，鼓励更多农户采用智能农业技术。科技公司也在加大研发力度，降低成本。",
+                    "农产品市场价格出现波动，部分蔬菜价格大幅上涨，肉类价格保持稳定。价格上涨主要受季节性因素和运输成本影响，供应总体充足。\n\n政府采取措施稳定市场供应，包括释放储备、增加进口、优化物流等。市场监管部门加强价格监测，打击囤积居奇行为。\n\n专家建议消费者理性购买，关注价格变化趋势，合理安排生活开支。",
+                    "农业政策调整方案正式出台，将加大对农户的扶持力度。新政策包括提高补贴标准、扩大保险覆盖、简化贷款程序等措施，帮助农民应对风险。\n\n政策特别关注小农户和贫困地区，提供定向支持。同时鼓励土地流转和规模经营，提高农业现代化水平。\n\n农业专家认为，政策调整将激发农民积极性，促进农业持续发展。",
+                    "多国签署农业合作协议，促进农产品贸易和农业技术交流。协议内容包括降低关税壁垒、统一质量标准、共享科研成果等，旨在构建更加开放的农业贸易体系。\n\n合作重点包括粮食安全、可持续农业、气候变化适应等领域。各方承诺增加农业投资，提升生产能力。\n\n协议预计将促进全球农产品流通，惠及生产者和消费者。",
+                    "农业科技研发项目取得重要进展，新型抗虫害转基因作物进入田间试验阶段。该品种能够抵抗主要害虫侵袭，减少农药使用，提高产量。\n\n同时，研究人员开发出高效节水灌溉技术，可节约用水30%以上。这些技术有望在干旱地区推广应用。\n\n监管部门正在进行安全评估，预计明年将公布审批结果。",
+                    "农业机械化水平持续提升，智能化农机装备普及率不断提高。自动驾驶拖拉机、无人植保机、智能收割机等设备广泛使用，提高了作业效率。\n\n农机合作社模式快速发展，为小农户提供专业化服务。政府加大农机购置补贴，降低农民负担。\n\n专家预测，未来农业将实现全程机械化，大幅减少人力需求。",
+                    "农产品出口数据喜人，出口总额同比增长12%，对外贸易保持良好增长势头。主要出口产品包括水果、蔬菜、水产品等，受到国际市场欢迎。\n\n出口企业注重品牌建设和质量提升，增强了竞争力。跨境电商平台也为农产品出口提供了新渠道。\n\n政府将继续优化出口政策，支持企业拓展海外市场。",
+                    "农业保险政策覆盖面扩大，为农户提供更多风险保障。新政策增加了自然灾害、市场价格波动等多重风险保障，理赔程序更加便捷。\n\n试点地区的数据显示，参保农户在遭遇灾害后能够较快恢复生产。政府和保险公司合作，降低保费，提高覆盖率。\n\n专家建议农户积极参保，分散生产经营风险。",
+                    "农村发展规划全面实施，乡村振兴战略取得初步成效。农村基础设施不断完善，公共服务水平提升，人居环境明显改善。\n\n特色农业、乡村旅游、电商等新业态蓬勃发展，为农民增收开辟新途径。城乡融合发展步伐加快，要素流动更加顺畅。\n\n政府表示将继续加大投入，确保乡村振兴目标如期实现。"
+                ]
+            };
+            return contents[category][Math.floor(Math.random() * contents[category].length)];
+        }
+
+        // 随机生成市场类型
+        function getRandomMarketType() {
+            const types = ['positive', 'negative', 'neutral'];
+            return types[Math.floor(Math.random() * types.length)];
+        }
+
+        // 随机生成市场影响原因
+        function getRandomMarketReason(category) {
+            const reasons = {
+                military: [
+                    "地缘政治紧张推高防务股，但可能影响能源市场稳定性",
+                    "冲突可能导致能源供应中断，推高油价",
+                    "军演对防务板块有短期提振作用",
+                    "军事合作加强利好军工企业",
+                    "安全担忧促使投资者寻求避险资产"
+                ],
+                political: [
+                    "政策利好清洁能源和绿色技术企业",
+                    "贸易协定将促进商品流通和出口企业收益",
+                    "国际合作加强有利于全球供应链稳定",
+                    "政治不确定性可能影响投资者信心",
+                    "新政策有望刺激相关行业发展"
+                ],
+                economic: [
+                    "制造业扩张加速提振工业股和周期性股票",
+                    "政策连续性有助于稳定市场预期",
+                    "市场情绪趋于谨慎，短期波动加剧",
+                    "通胀数据符合预期，缓解加息担忧",
+                    "就业数据强劲支撑消费股表现"
+                ],
+                tech: [
+                    "量子计算应用将带动相关产业链发展",
+                    "医疗科技突破推动相关概念股上涨",
+                    "算法突破将推动AI相关企业技术升级",
+                    "新技术应用前景广阔，吸引资本关注",
+                    "研发投入加大，长期看好行业发展"
+                ],
+                agriculture: [
+                    "供应增加缓解粮食安全担忧，农产品价格或回落",
+                    "农业技术革新将提升相关企业收益",
+                    "供应链问题可能导致农产品价格上涨",
+                    "政策扶持有利于农业企业发展",
+                    "气候变化影响产量，需关注后续影响"
+                ]
+            };
+            return reasons[category][Math.floor(Math.random() * reasons[category].length)];
+        }
+
+        // 生成初始新闻数据
+        function initNewsData() {
+            const categories = ['military', 'political', 'economic', 'tech', 'agriculture'];
+            const hours = [7, 10, 13, 16]; // 只生成当前时间前的几个时段
+            
+            categories.forEach(category => {
+                hours.forEach(hour => {
+                    allNewsData[category].push({
+                        id: Date.now() + Math.floor(Math.random() * 10000),
+                        title: `${hour}:00 ${category === 'military' ? '军事' : category === 'political' ? '政治' : category === 'economic' ? '经济' : category === 'tech' ? '科技' : '农业'}动态 - ${getRandomTopic(category)}`,
+                        desc: getRandomDesc(category),
+                        fullContent: getRandomFullContent(category),
+                        time: `${hour}:00`,
+                        date: new Date().toLocaleDateString('zh-CN'),
+                        market: { type: getRandomMarketType(), reason: getRandomMarketReason(category) }
+                    });
+                });
+            });
+        }
+
         // 更新当前时间
         function updateCurrentTime() {
             const now = new Date();
@@ -415,113 +788,20 @@
             });
             document.getElementById('current-time').textContent = timeString;
         }
-        
-        // 初始化时间显示
-        updateCurrentTime();
-        setInterval(updateCurrentTime, 1000);
-        
-        // 详细新闻内容
-        const detailedNewsContent = {
-            1: "北约在东欧举行的大规模军事演习代号为\"坚定正午2026\"，涉及来自20多个国家的约4万名士兵。演习范围覆盖波兰、立陶宛、拉脱维亚和爱沙尼亚等多个国家，旨在测试联盟快速反应能力。演习包括实弹射击、空中支援、后勤保障等多个科目，持续时间为两周。北约官员表示，此次演习是例行训练活动，旨在维护地区安全与稳定。",
-            2: "中东地区近期局势急剧恶化，两个邻国在边境地区爆发了激烈的武装冲突。冲突起因于领土争议和水资源分配问题，双方指责对方违反停火协议。冲突导致数千名平民逃离家园，国际红十字会等组织紧急派遣救援队伍进入该地区。联合国安理会召开紧急会议，呼吁双方立即停火。",
-            3: "欧盟峰会在布鲁塞尔结束，各成员国领导人就2027-2031年度预算框架达成历史性协议。预算总额约为1.8万亿欧元，其中30%将用于绿色转型项目，20%用于数字化转型。协议还包括设立专门的创新基金，支持清洁技术研发和应用。预算案强调了可持续发展的重要性，设定了到2030年碳排放减少55%的目标。",
-            4: "拉美三国——巴西、阿根廷和智利——在圣保罗签署了全面自由贸易协定，标志着南美地区经济一体化迈出重要一步。协定取消了三国之间90%以上的商品关税，预计将在未来五年内使三国贸易额增长30%以上。协定还包括服务贸易、投资保护和知识产权保护等内容。",
-            5: "中央银行货币政策委员会今日召开会议，决定维持基准利率在3.5%不变。这是连续第四个季度保持利率稳定，符合市场普遍预期。央行行长在会后新闻发布会上表示，当前通胀率控制在目标范围内，经济增长保持稳健。未来将继续密切关注国内外经济形势变化。",
-            6: "最新公布的3月份制造业采购经理人指数(PMI)达到52.1，超出此前市场预期的50.8。这是连续第8个月处于扩张区间，显示出制造业强劲的增长势头。新订单指数和生产指数均有所上升，表明市场需求持续增长。就业指数也呈现回升趋势，显示制造业吸纳就业的能力增强。",
-            7: "科技巨头今日发布全球首款1000量子比特商用量子计算机，标志着量子计算从实验室走向实际应用的重要里程碑。该计算机采用了全新的纠错技术，显著提高了量子比特的稳定性和计算精度。公司CEO表示，这将开启量子计算商业化的新时代。",
-            8: "监管机构正式批准了全球首款脑机接口医疗设备的上市申请，该设备可用于治疗严重的神经系统疾病，如帕金森病和癫痫。这款设备通过植入大脑的微小芯片，能够实时监测和调节神经活动。临床试验显示，该设备对患者的症状改善效果显著。",
-            9: "联合国粮农组织最新报告显示，2026年全球谷物产量预测上调至28.5亿吨，较上月预测增加了3%。主要原因是天气条件改善和农业技术进步。小麦产量预计将达到7.8亿吨，玉米产量预计为12.2亿吨，大米产量预计为5.1亿吨。三大主粮产量均有不同程度增长。",
-            10: "精准农业技术在全球范围内得到广泛应用，无人机、人工智能和物联网技术正在改变传统的农业生产方式。农民现在可以使用无人机监测作物生长情况，利用AI分析土壤数据，通过物联网设备实时监控农田环境。这些技术显著提高了农业生产的效率和精准度。"
-        };
-        
-        // 新闻数据
-        const newsData = {
-            military: [
-                { 
-                    id: 1,
-                    title: "北约在东欧举行大规模军演", 
-                    desc: "多国军队参与的联合演习在波罗的海地区开始，将持续两周时间", 
-                    time: "09:15", 
-                    market: { type: "neutral", reason: "地缘政治紧张推高防务股，但可能影响能源市场稳定性" }
-                },
-                { 
-                    id: 2,
-                    title: "中东地区军事冲突升级", 
-                    desc: "两国边境地区发生激烈交火，国际社会呼吁立即停火", 
-                    time: "14:30", 
-                    market: { type: "negative", reason: "冲突可能导致能源供应中断，推高油价" }
-                }
-            ],
-            political: [
-                { 
-                    id: 3,
-                    title: "欧盟峰会就新预算达成协议", 
-                    desc: "欧盟领导人就2027-2031年度预算框架达成一致，重点支持绿色转型项目", 
-                    time: "10:45", 
-                    market: { type: "positive", reason: "大量资金投入绿色科技和数字基建领域" }
-                },
-                { 
-                    id: 4,
-                    title: "拉美三国签署自贸协定", 
-                    desc: "南美三国正式签署全面自由贸易协定，促进区域经济一体化", 
-                    time: "16:20", 
-                    market: { type: "positive", reason: "贸易壁垒减少将促进商品流通和出口企业收益" }
-                }
-            ],
-            economic: [
-                { 
-                    id: 5,
-                    title: "央行维持基准利率不变", 
-                    desc: "中央银行宣布维持关键利率在3.5%不变，符合市场预期", 
-                    time: "11:30", 
-                    market: { type: "neutral", reason: "政策连续性有助于稳定市场预期" }
-                },
-                { 
-                    id: 6,
-                    title: "制造业PMI数据超预期", 
-                    desc: "3月份制造业采购经理人指数达到52.1，高于预期的50.8", 
-                    time: "17:45", 
-                    market: { type: "positive", reason: "制造业扩张加速提振工业股和周期性股票" }
-                }
-            ],
-            tech: [
-                { 
-                    id: 7,
-                    title: "新一代量子计算机投入商用", 
-                    desc: "科技巨头推出1000量子比特商用量子计算机，标志实用化阶段", 
-                    time: "12:20", 
-                    market: { type: "positive", reason: "量子计算应用将带动相关产业链发展" }
-                },
-                { 
-                    id: 8,
-                    title: "全球首例脑机接口医疗设备获批", 
-                    desc: "监管机构批准脑机接口医疗设备上市，用于治疗神经系统疾病", 
-                    time: "19:10", 
-                    market: { type: "positive", reason: "医疗科技突破推动相关概念股上涨" }
-                }
-            ],
-            agriculture: [
-                { 
-                    id: 9,
-                    title: "全球粮食产量预测上调", 
-                    desc: "联合国粮农组织上调全球谷物产量预测至28.5亿吨", 
-                    time: "09:20", 
-                    market: { type: "positive", reason: "供应增加缓解粮食安全担忧，农产品价格或回落" }
-                },
-                { 
-                    id: 10,
-                    title: "精准农业技术广泛应用", 
-                    desc: "多国农民采用无人机和AI技术进行田间管理，提高产量", 
-                    time: "15:40", 
-                    market: { type: "positive", reason: "农业技术革新将提升相关企业收益" }
-                }
-            ]
-        };
-        
+
+        // 获取按时间倒序排序的新闻
+        function getSortedNews(category) {
+            return [...allNewsData[category]].sort((a, b) => {
+                const timeA = parseInt(a.time.split(':')[0]) * 60 + parseInt(a.time.split(':')[1]);
+                const timeB = parseInt(b.time.split(':')[0]) * 60 + parseInt(b.time.split(':')[1]);
+                return timeB - timeA; // 倒序排列
+            });
+        }
+
         // 渲染新闻项
         function renderNewsItem(news, category) {
             return `
-                <div class="news-item ${category}" onclick="showNewsDetail(${news.id}, '${category}')">
+                <div class="news-item ${category}" onclick="showNewsDetail(${news.id})">
                     <div class="news-header">
                         <div class="news-title">${news.title}</div>
                         <span class="news-date">${news.time}</span>
@@ -534,7 +814,7 @@
                 </div>
             `;
         }
-        
+
         // 加载特定类别的新闻
         function loadNews(category) {
             const loadingElement = document.getElementById(`${category}-loading`);
@@ -543,21 +823,24 @@
             // 显示加载状态
             if(loadingElement) loadingElement.style.display = 'block';
             
-            // 模拟快速加载
+            // 快速加载
             setTimeout(() => {
                 // 清空容器
                 container.innerHTML = '';
                 
+                // 获取按时间倒序排序的新闻
+                const sortedNews = getSortedNews(category);
+                
                 // 渲染新闻
-                newsData[category].forEach(news => {
+                sortedNews.forEach(news => {
                     container.innerHTML += renderNewsItem(news, category);
                 });
                 
                 // 隐藏加载状态
                 if(loadingElement) loadingElement.style.display = 'none';
-            }, 50);
+            }, 100);
         }
-        
+
         // 切换分类
         function switchCategory(category) {
             // 更新活动标签
@@ -590,17 +873,28 @@
                 loadNews(category);
             }
         }
-        
+
+        // 查找新闻
+        function findNewsById(id) {
+            for (let category in allNewsData) {
+                for (let news of allNewsData[category]) {
+                    if (news.id == id) {
+                        return { ...news, category };
+                    }
+                }
+            }
+            return null;
+        }
+
         // 显示新闻详情
-        function showNewsDetail(id, category) {
-            // 查找新闻详情
-            const news = newsData[category].find(n => n.id === id);
+        function showNewsDetail(id) {
+            const news = findNewsById(id);
             if (!news) return;
             
             // 设置模态框内容
             document.getElementById('modal-title').textContent = news.title;
-            document.getElementById('modal-date').textContent = `发布时间: ${news.time}`;
-            document.getElementById('modal-content').textContent = detailedNewsContent[id];
+            document.getElementById('modal-date').textContent = `发布时间: ${news.date} ${news.time}`;
+            document.getElementById('modal-content').textContent = news.fullContent;
             
             // 设置市场影响信息
             const marketNote = document.getElementById('modal-market-note');
@@ -611,17 +905,22 @@
             document.getElementById('modal-overlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-        
+
         // 关闭模态框
         function closeModal() {
             document.getElementById('modal-overlay').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        
-        // 页面加载完成后初始化第一个标签的新闻
-        document.addEventListener('DOMContentLoaded', function() {
+
+        // 在DOM完全加载后初始化
+        window.onload = function() {
+            initNewsData(); // 初始化数据
+            updateCurrentTime(); // 更新时间
+            
+            // 加载军事新闻
             loadNews('military');
-        });
+            
+            // 设置定时更新时间
+            setInterval(updateCurrentTime, 1000);
+        };
     </script>
-</body>
-</html>
