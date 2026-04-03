@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球焦点新闻推送</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 15px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .time-display {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #28a745;
+            margin-right: 5px;
+        }
+        
+        .connection-status {
+            font-size: 11px;
+            margin-top: 3px;
+            color: #a0aec0;
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: space-between;
+            gap: 2px;
+            margin-bottom: 15px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px 5px;
+            border: none;
+            background: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 6px;
+            margin: 0 1px;
+        }
+        
+        .tab-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .news-container {
+            width: 100%;
+        }
+        
+        .news-section {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .news-section.active {
+            display: block;
+        }
+        
+        .news-item {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            background-color: #fafafa;
+            cursor: pointer;
+            border-left: 4px solid #ccc;
+        }
+        
+        .news-item.military { border-left-color: #8B0000; }
+        .news-item.political { border-left-color: #4B0082; }
+        .news-item.economic { border-left-color: #006400; }
+        .news-item.tech { border-left-color: #00008B; }
+        .news-item.agriculture { border-left-color: #8B4513; }
+        
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .news-title {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 15px;
+        }
+        
+        .news-date {
+            font-size: 10px;
+            color: #7f8c8d;
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        .news-desc {
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .market-note {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+        
+        .market-note.positive {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .market-note.negative {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .market-note.neutral {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .reason-text {
+            font-style: italic;
+            color: #666;
+            margin-top: 4px;
+            font-size: 10px;
+        }
+        
+        .loading-news {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .subscribe-form {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .modal-date {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .modal-content {
+            line-height: 1.6;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .modal-market-note {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        
+        .modal-market-note.positive {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .modal-market-note.negative {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .modal-market-note.neutral {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+        
+        input, button {
+            padding: 10px;
+            margin: 6px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+            
+            .tab-btn {
+                font-size: 11px;
+                padding: 10px 3px;
+            }
+            
+            .news-title {
+                font-size: 14px;
+            }
+            
+            .news-desc {
+                font-size: 12px;
+            }
+            
+            .modal {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>全球焦点新闻推送</h1>
+            <div class="time-display" id="current-time">加载中...</div>
+            <div class="connection-status">
+                <span class="status-indicator"></span>
+                实时连接中
+            </div>
+        </header>
+        
+        <div class="category-tabs" id="tabs-container">
+            <button class="tab-btn military active" data-category="military" onclick="switchCategory('military')">军事</button>
+            <button class="tab-btn political" data-category="political" onclick="switchCategory('political')">政治</button>
+            <button class="tab-btn economic" data-category="economic" onclick="switchCategory('economic')">经济</button>
+            <button class="tab-btn tech" data-category="tech" onclick="switchCategory('tech')">科技</button>
+            <button class="tab-btn agriculture" data-category="agriculture" onclick="switchCategory('agriculture')">农业</button>
+        </div>
+        
+        <div class="news-container" id="news-container">
+            <div id="military-section" class="news-section active">
+                <h2 style="font-size: 16px; margin-bottom: 12px;">军事动态</h2>
+                <div class="loading-news" id="military-loading">正在获取最新军事新闻...</div>
+                <div id="military-news-container"></div>
+            </div>
+            
+            <div id="political-section" class="news-section">
+                <h2 style="font-size: 16px; margin-bottom: 12px;">政治动态</h2>
+                <div class="loading-news" id="political-loading">正在获取最新政治新闻...</div>
+                <div id="political-news-container"></div>
+            </div>
+            
+            <div id="economic-section" class="news-section">
+                <h2 style="font-size: 16px; margin-bottom: 12px;">经济动态</h2>
+                <div class="loading-news" id="economic-loading">正在获取最新经济新闻...</div>
+                <div id="economic-news-container"></div>
+            </div>
+            
+            <div id="tech-section" class="news-section">
+                <h2 style="font-size: 16px; margin-bottom: 12px;">科技动态</h2>
+                <div class="loading-news" id="tech-loading">正在获取最新科技新闻...</div>
+                <div id="tech-news-container"></div>
+            </div>
+            
+            <div id="agriculture-section" class="news-section">
+                <h2 style="font-size: 16px; margin-bottom: 12px;">农业动态</h2>
+                <div class="loading-news" id="agriculture-loading">正在获取最新农业新闻...</div>
+                <div id="agriculture-news-container"></div>
+            </div>
+        </div>
+        
+        <div class="subscribe-form">
+            <h2 style="margin-bottom: 8px; font-size: 16px;">订阅我们的每日推送</h2>
+            <p style="margin-bottom: 12px; font-size: 13px;">获取每日三次全球焦点新闻</p>
+            <input type="text" placeholder="输入您的姓名">
+            <input type="email" placeholder="输入您的邮箱">
+            <button>立即订阅</button>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">新闻详情</div>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-date" id="modal-date"></div>
+            <div class="modal-content" id="modal-content"></div>
+            <div class="modal-market-note" id="modal-market-note"></div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2026 全球焦点新闻推送平台</p>
+    </footer>
+
+    <script>
+        // 更新当前时间
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        // 初始化时间显示
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
+        
+        // 详细新闻内容
+        const detailedNewsContent = {
+            1: "北约在东欧举行的大规模军事演习代号为\"坚定正午2026\"，涉及来自20多个国家的约4万名士兵。演习范围覆盖波兰、立陶宛、拉脱维亚和爱沙尼亚等多个国家，旨在测试联盟快速反应能力。演习包括实弹射击、空中支援、后勤保障等多个科目，持续时间为两周。北约官员表示，此次演习是例行训练活动，旨在维护地区安全与稳定。",
+            2: "中东地区近期局势急剧恶化，两个邻国在边境地区爆发了激烈的武装冲突。冲突起因于领土争议和水资源分配问题，双方指责对方违反停火协议。冲突导致数千名平民逃离家园，国际红十字会等组织紧急派遣救援队伍进入该地区。联合国安理会召开紧急会议，呼吁双方立即停火。",
+            3: "欧盟峰会在布鲁塞尔结束，各成员国领导人就2027-2031年度预算框架达成历史性协议。预算总额约为1.8万亿欧元，其中30%将用于绿色转型项目，20%用于数字化转型。协议还包括设立专门的创新基金，支持清洁技术研发和应用。预算案强调了可持续发展的重要性，设定了到2030年碳排放减少55%的目标。",
+            4: "拉美三国——巴西、阿根廷和智利——在圣保罗签署了全面自由贸易协定，标志着南美地区经济一体化迈出重要一步。协定取消了三国之间90%以上的商品关税，预计将在未来五年内使三国贸易额增长30%以上。协定还包括服务贸易、投资保护和知识产权保护等内容。",
+            5: "中央银行货币政策委员会今日召开会议，决定维持基准利率在3.5%不变。这是连续第四个季度保持利率稳定，符合市场普遍预期。央行行长在会后新闻发布会上表示，当前通胀率控制在目标范围内，经济增长保持稳健。未来将继续密切关注国内外经济形势变化。",
+            6: "最新公布的3月份制造业采购经理人指数(PMI)达到52.1，超出此前市场预期的50.8。这是连续第8个月处于扩张区间，显示出制造业强劲的增长势头。新订单指数和生产指数均有所上升，表明市场需求持续增长。就业指数也呈现回升趋势，显示制造业吸纳就业的能力增强。",
+            7: "科技巨头今日发布全球首款1000量子比特商用量子计算机，标志着量子计算从实验室走向实际应用的重要里程碑。该计算机采用了全新的纠错技术，显著提高了量子比特的稳定性和计算精度。公司CEO表示，这将开启量子计算商业化的新时代。",
+            8: "监管机构正式批准了全球首款脑机接口医疗设备的上市申请，该设备可用于治疗严重的神经系统疾病，如帕金森病和癫痫。这款设备通过植入大脑的微小芯片，能够实时监测和调节神经活动。临床试验显示，该设备对患者的症状改善效果显著。",
+            9: "联合国粮农组织最新报告显示，2026年全球谷物产量预测上调至28.5亿吨，较上月预测增加了3%。主要原因是天气条件改善和农业技术进步。小麦产量预计将达到7.8亿吨，玉米产量预计为12.2亿吨，大米产量预计为5.1亿吨。三大主粮产量均有不同程度增长。",
+            10: "精准农业技术在全球范围内得到广泛应用，无人机、人工智能和物联网技术正在改变传统的农业生产方式。农民现在可以使用无人机监测作物生长情况，利用AI分析土壤数据，通过物联网设备实时监控农田环境。这些技术显著提高了农业生产的效率和精准度。"
+        };
+        
+        // 新闻数据
+        const newsData = {
+            military: [
+                { 
+                    id: 1,
+                    title: "北约在东欧举行大规模军演", 
+                    desc: "多国军队参与的联合演习在波罗的海地区开始，将持续两周时间", 
+                    time: "09:15", 
+                    market: { type: "neutral", reason: "地缘政治紧张推高防务股，但可能影响能源市场稳定性" }
+                },
+                { 
+                    id: 2,
+                    title: "中东地区军事冲突升级", 
+                    desc: "两国边境地区发生激烈交火，国际社会呼吁立即停火", 
+                    time: "14:30", 
+                    market: { type: "negative", reason: "冲突可能导致能源供应中断，推高油价" }
+                }
+            ],
+            political: [
+                { 
+                    id: 3,
+                    title: "欧盟峰会就新预算达成协议", 
+                    desc: "欧盟领导人就2027-2031年度预算框架达成一致，重点支持绿色转型项目", 
+                    time: "10:45", 
+                    market: { type: "positive", reason: "大量资金投入绿色科技和数字基建领域" }
+                },
+                { 
+                    id: 4,
+                    title: "拉美三国签署自贸协定", 
+                    desc: "南美三国正式签署全面自由贸易协定，促进区域经济一体化", 
+                    time: "16:20", 
+                    market: { type: "positive", reason: "贸易壁垒减少将促进商品流通和出口企业收益" }
+                }
+            ],
+            economic: [
+                { 
+                    id: 5,
+                    title: "央行维持基准利率不变", 
+                    desc: "中央银行宣布维持关键利率在3.5%不变，符合市场预期", 
+                    time: "11:30", 
+                    market: { type: "neutral", reason: "政策连续性有助于稳定市场预期" }
+                },
+                { 
+                    id: 6,
+                    title: "制造业PMI数据超预期", 
+                    desc: "3月份制造业采购经理人指数达到52.1，高于预期的50.8", 
+                    time: "17:45", 
+                    market: { type: "positive", reason: "制造业扩张加速提振工业股和周期性股票" }
+                }
+            ],
+            tech: [
+                { 
+                    id: 7,
+                    title: "新一代量子计算机投入商用", 
+                    desc: "科技巨头推出1000量子比特商用量子计算机，标志实用化阶段", 
+                    time: "12:20", 
+                    market: { type: "positive", reason: "量子计算应用将带动相关产业链发展" }
+                },
+                { 
+                    id: 8,
+                    title: "全球首例脑机接口医疗设备获批", 
+                    desc: "监管机构批准脑机接口医疗设备上市，用于治疗神经系统疾病", 
+                    time: "19:10", 
+                    market: { type: "positive", reason: "医疗科技突破推动相关概念股上涨" }
+                }
+            ],
+            agriculture: [
+                { 
+                    id: 9,
+                    title: "全球粮食产量预测上调", 
+                    desc: "联合国粮农组织上调全球谷物产量预测至28.5亿吨", 
+                    time: "09:20", 
+                    market: { type: "positive", reason: "供应增加缓解粮食安全担忧，农产品价格或回落" }
+                },
+                { 
+                    id: 10,
+                    title: "精准农业技术广泛应用", 
+                    desc: "多国农民采用无人机和AI技术进行田间管理，提高产量", 
+                    time: "15:40", 
+                    market: { type: "positive", reason: "农业技术革新将提升相关企业收益" }
+                }
+            ]
+        };
+        
+        // 渲染新闻项
+        function renderNewsItem(news, category) {
+            return `
+                <div class="news-item ${category}" onclick="showNewsDetail(${news.id}, '${category}')">
+                    <div class="news-header">
+                        <div class="news-title">${news.title}</div>
+                        <span class="news-date">${news.time}</span>
+                    </div>
+                    <div class="news-desc">${news.desc}</div>
+                    <div class="market-note ${news.market.type}">
+                        市场影响：${news.market.type === 'positive' ? '利好' : news.market.type === 'negative' ? '可能不利' : '中性'}
+                        <div class="reason-text">${news.market.reason}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 加载特定类别的新闻
+        function loadNews(category) {
+            const loadingElement = document.getElementById(`${category}-loading`);
+            const container = document.getElementById(`${category}-news-container`);
+            
+            // 显示加载状态
+            if(loadingElement) loadingElement.style.display = 'block';
+            
+            // 模拟快速加载
+            setTimeout(() => {
+                // 清空容器
+                container.innerHTML = '';
+                
+                // 渲染新闻
+                newsData[category].forEach(news => {
+                    container.innerHTML += renderNewsItem(news, category);
+                });
+                
+                // 隐藏加载状态
+                if(loadingElement) loadingElement.style.display = 'none';
+            }, 50);
+        }
+        
+        // 切换分类
+        function switchCategory(category) {
+            // 更新活动标签
+            const allTabs = document.querySelectorAll('.tab-btn');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 找到对应的标签并激活
+            const activeTab = document.querySelector(`.tab-btn[data-category="${category}"]`);
+            if(activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            // 隐藏所有新闻区域
+            const allSections = document.querySelectorAll('.news-section');
+            allSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 显示选定的新闻区域
+            const targetSection = document.getElementById(`${category}-section`);
+            if(targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // 加载新闻（如果还没加载）
+            const newsContainer = document.getElementById(`${category}-news-container`);
+            if (newsContainer && newsContainer.children.length === 0) {
+                loadNews(category);
+            }
+        }
+        
+        // 显示新闻详情
+        function showNewsDetail(id, category) {
+            // 查找新闻详情
+            const news = newsData[category].find(n => n.id === id);
+            if (!news) return;
+            
+            // 设置模态框内容
+            document.getElementById('modal-title').textContent = news.title;
+            document.getElementById('modal-date').textContent = `发布时间: ${news.time}`;
+            document.getElementById('modal-content').textContent = detailedNewsContent[id];
+            
+            // 设置市场影响信息
+            const marketNote = document.getElementById('modal-market-note');
+            marketNote.className = `modal-market-note ${news.market.type}`;
+            marketNote.textContent = `市场影响：${news.market.type === 'positive' ? '利好' : news.market.type === 'negative' ? '可能不利' : '中性'}\n原因：${news.market.reason}`;
+            
+            // 显示模态框
+            document.getElementById('modal-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 页面加载完成后初始化第一个标签的新闻
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNews('military');
+        });
+    </script>
+</body>
+</html>
